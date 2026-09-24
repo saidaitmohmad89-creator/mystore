@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجري الشامل - المواد المتوفرة</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #0f172a;
+            --accent-color: #10b981;
+            --bg-color: #f1f5f9;
+            --text-color: #334155;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-bottom: 2rem;
+        }
+        header {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .logo {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .container {
+            max-width: 100%;
+            padding: 1rem;
+        }
+        .section-title {
+            margin: 1.5rem 0 0.5rem 0;
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            border-bottom: 2px solid #cbd5e1;
+            padding-bottom: 0.3rem;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        @media (min-width: 600px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .product-img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 0.8rem;
+            background-color: #e2e8f0;
+        }
+        .product-info h3 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+            color: var(--secondary-color);
+        }
+        .product-desc {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-bottom: 0.6rem;
+        }
+        .product-price {
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+        }
+        .add-to-cart {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.6rem;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        .cart-section {
+            background: white;
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            margin-top: 1.5rem;
+        }
+        .cart-items {
+            list-style: none;
+            max-height: 220px;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .cart-item-details {
+            font-size: 0.85rem;
+        }
+        .remove-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+        }
+        .cart-total {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        .checkout-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 6px;
+            width: 100%;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">متجري الشامل - المواد المتوفرة 🛒</div>
+    </header>
+
+    <div class="container">
+        <h2 class="section-title">قائمة المنتجات والمواد بالصور</h2>
+        <div class="products-grid" id="products-grid"></div>
+
+        <div class="cart-section">
+            <h2 class="section-title" style="margin-top: 0;">سلة المشتريات</h2>
+            <ul class="cart-items" id="cart-items">
+                <p style="text-align: center; color: #94a3b8; font-size: 0.9rem;" id="empty-cart-msg">السلة فارغة حالياً</p>
+            </ul>
+            <div class="cart-total">
+                <span>المجموع الكلي:</span>
+                <span id="total-price">0.00 درهم</span>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">إتمام الطلب عبر واتساب 📱</button>
+        </div>
+    </div>
+
+    <script>
+        const products = [
+            { id: 1, name: "ماء جافيل (Javel) لتر واحد", desc: "مطهر قوي وقاتل للجراثيم", price: 6, img: "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?w=300" },
+            { id: 2, name: "جافيل عالي التركيز 5 لتر", desc: "عبوة اقتصادية لتنظيف الأرضيات", price: 22, img: "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?w=300" },
+            { id: 3, name: "سائل غسل الأواني (تريكس)", desc: "رغوة كثيفة وإزالة سريعة للدهون", price: 14, img: "https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?w=300" },
+            { id: 4, name: "مسحوق غسيل الملابس", desc: "نظافة عميقة وبياض ناصع", price: 28, img: "https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=300" },
+            { id: 5, name: "معطر الأرضيات والجو", desc: "رائحة زكية تدوم طويلاً", price: 18, img: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=300" },
+            { id: 6, name: "صابون بلدي مغربي", desc: "صابون تقليدي طبيعي", price: 10, img: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=300" },
+            { id: 7, name: "إسفنج تنظيف الأواني", desc: "مجموعة إسفنج متينة", price: 5, img: "https://images.unsplash.com/photo-1563245372-f21724e3856d?w=300" },
+            { id: 8, name: "مُطهر الحمامات والصنابير", desc: "إزالة الصدأ والترسبات", price: 16, img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=300" },
+            { id: 9, name: "أكياس القمامة (رولو)", desc: "أكياس سميكة ومتينة", price: 12, img: "https://images.unsplash.com/photo-1611288734538-b7d60f4e43e2?w=300" },
+            { id: 10, name: "منظف الزجاج والمرايا", desc: "لمعان وبريق بدون آثار", price: 15, img: "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?w=300" },
+            { id: 11, name: "زيت المائدة الممتاز (5 لتر)", desc: "زيت نقي للطبخ والقلي", price: 85, img: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=300" },
+            { id: 12, name: "زيت الزيتون البكر", desc: "زيت زيتون حر عالي الجودة", price: 90, img: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=300" },
+            { id: 13, name: "شاي أخضر شعرة أصلي", desc: "شاي مغربي أصيل لذيذ", price: 25, img: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=300" },
+            { id: 14, name: "سكر سنيدة (2 كيلو)", desc: "سكر نقي لجميع الاستخدامات", price: 16, img: "https://images.unsplash.com/photo-1581441363689-1f3c3c5f4625?w=300" },
+            { id: 15, name: "قالب سكر مغربي", desc: "قالب سكر تقليدي", price: 14, img: "https://images.unsplash.com/photo-1581441363689-1f3c3c5f4625?w=300" },
+            { id: 16, name: "دقيق القمح (5 كغ)", desc: "دقيق ممتاز للخبز والمعجنات", price: 22, img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=300" },
+            { id: 17, name: "أرز غلاسي ممتاز (كيلو)", desc: "حبوب طويلة لا تتلصق", price: 18, img: "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=300" },
+            { id: 18, name: "عسل النحل الطبيعي", desc: "عسل صافٍ ومغذي", price: 65, img: "https://images.unsplash.com/photo-1587049352847-4a222e784d38?w=300" },
+            { id: 19, name: "قهوة سريعة الذوبان", desc: "قهوة مركزة ومنعشة", price: 30, img: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=300" },
+            { id: 20, name: "حليب معقم (لتر)", desc: "حليب طري وعالي الجودة", price: 10, img: "https://images.unsplash.com/photo-1550583724-b2692b85b150?w=300" },
+            { id: 21, name: "علبة بسكويت مقرمش", desc: "بسكويت لذيذ للصغار والكبار", price: 12, img: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=300" },
+            { id: 22, name: "شكولاطة للدهن", desc: "كريم الشكولاطة للخبز", price: 25, img: "https://images.unsplash.com/photo-1548907040-4baa42d10919?w=300" },
+            { id: 23, name: "علبة طونة بالزيت", desc: "طونة ممتازة للسندويتشات", price: 15, img: "https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=300" },
+            { id: 24, name: "صلصة الطماطم المركزة", desc: "طماطم معلبة للطبخ", price: 8, img: "https://images.unsplash.com/photo-1592417817098-8f3d691a4bf5?w=300" },
+            { id: 25, name: "مكرونة سباجيتي (كيلو)", desc: "عجائن ممتازة", price: 12, img: "https://images.unsplash.com/photo-1621996346565-e3d5d6281298?w=300" },
+            { id: 26, name: "شاحن هاتف سريع (Type-C)", desc: "شارجور سريع وآمن للهواتف", price: 70, img: "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=300" },
+            { id: 27, name: "شاحن هاتف (Micro-USB)", desc: "شارجور للهواتف العادية", price: 45, img: "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=300" },
+            { id: 28, name: "شاحن آيفون سريع", desc: "شارجور أصلي لهواتف آيفون", price: 90, img: "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=300" },
+            { id: 29, name: "كابل شحن مضفر قوي", desc: "كابل طويل ومقاوم للقطع", price: 30, img: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300" },
+            { id: 30, name: "بنك طاقة (Power Bank)", desc: "شاحن بطارية للطوارئ", price: 130, img: "https://images.unsplash.com/photo-1609592806158-d24329241517?w=300" },
+            { id: 31, name: "سماعات بلوتوث لاسلكية", desc: "صوت نقي مع علبة شحن", price: 120, img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300" },
+            { id: 32, name: "سماعات أذن سلكية", desc: "صوت ستيريو عالي النقاء", price: 35, img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300" },
+            { id: 33, name: "حامل هاتف للسيارة", desc: "ثبات قوي وسهل التركيب", price: 50, img: "https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?w=300" },
+            { id: 34, name: "بطاقة تخزين (64GB)", desc: "مساحة إضافية لهاتفك", price: 80, img: "https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=300" },
+            { id: 35, name: "مفتاح تخزين (USB 32GB)", desc: "لنقل وتخزين الملفات", price: 50, img: "https://images.unsplash.com/photo-1531525654383-7d7e4871e34b?w=300" },
+            { id: 36, name: "رأس شاحن سيارة بمنفذين", desc: "اشحن هاتفك أثناء القيادة", price: 40, img: "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=300" },
+            { id: 37, name: "لمبة ليد اقتصادية", desc: "إضاءة ساطعة وقوية", price: 25, img: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=300" },
+            { id: 38, name: "بطاريات ريموت", desc: "بطاريات قوية للأجهزة", price: 15, img: "https://images.unsplash.com/photo-1619785291520-d9c40f4400e6?w=300" },
+            { id: 39, name: "غسول الفم أمالفي (Amalfi)", desc: "عناية فائقة وانتعاش للفم", price: 45, img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=300" },
+            { id: 40, name: "معجون أسنان مبيض", desc: "يحمي الأسنان ويمنح نفساً طيباً", price: 18, img: "https://images.unsplash.com/photo-1559595987-fe905e5537a5?w=300" },
+            { id: 41, name: "فرشاة أسنان ناعمة", desc: "تنظيف دقيق ولطيف على اللثة", price: 10, img: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=300" },
+            { id: 42, name: "شامبو الشعر المغذي", desc: "يقضي على القشرة ويغذي الشعر", price: 35, img: "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?w=300" },
+            { id: 43, name: "صابون الاستحمام المعطر", desc: "ينظف البشرة برائحة منعشة", price: 8, img: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=300" },
+            { id: 44, name: "مزيل العرق (Roll-on)", desc: "حماية طوال اليوم", price: 25, img: "https://images.unsplash.com/photo-1617897903246-719242758050?w=300" },
+            { id: 45, name: "عطر رجالي فخم", desc: "رائحة راقية وثابتة", price: 150, img: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=300" },
+            { id: 46, name: "عطر نسائي أنيق", desc: "نفحات زكية وجذابة", price: 150, img: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=300" },
+            { id: 47, name: "شفرات حلاقة رجالية", desc: "حلاقة دقيقة وناعمة", price: 30, img: "https://images.unsplash.com/photo-1593720213428-28a5b9e94613?w=300" },
+            { id: 48, name: "كريم مرطب للبشرة", desc: "يقي من الجفاف والتشقق", price: 20, img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=300" },
+            { id: 49, name: "مناديل ورقية معطرة", desc: "نعومة فائقة للاستخدام", price: 12, img: "https://images.unsplash.com/photo-1583947215259-38e31be8751f?w=300" },
+            { id: 50, name: "قطن طبي للعناية", desc: "قطن نقي 100% وآمن", price: 15, img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=300" }
+        ];
+
+        let cart = [];
+
+        function renderProducts() {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = '';
+            products.forEach(product => {
+                grid.innerHTML += `
+                    <div class="product-card">
+                        <img src="${product.img}" alt="${product.name}" class="product-img">
+                        <div class="product-info">
+                            <h3>${product.name}</h3>
+                            <div class="product-desc">${product.desc}</div>
+                            <div class="product-price">${product.price} درهم</div>
+                        </div>
+                        <button class="add-to-cart" onclick="addToCart(${product.id})">إضافة إلى السلة</button>
+                    </div>
+                `;
+            });
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const cartItem = cart.find(item => item.id === productId);
+
+            if (cartItem) {
+                cartItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            updateCart();
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCart();
+        }
+
+        project_updateCart = function updateCart() {
+            const cartList = document.getElementById('cart-items');
+            const totalPriceEl = document.getElementById('total-price');
+            cartList.innerHTML = '';
+            if (cart.length === 0) {
+                cartList.innerHTML = '<p style="text-align: center; color: #94a3b8; font-size: 0.9rem;" id="empty-cart-msg">السلة فارغة حالياً</p>';
+                totalPriceEl.innerText = '0.00 درهم';
+                return;
+            }
+            let total = 0;
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+                cartList.innerHTML += `
+                    <li class="cart-item">
+                        <div class="cart-item-details">
+                            <strong>${item.name}</strong><br>${item.price} د.م × ${item.quantity}
+                        </div>
+                        <button class="remove-btn" onclick="removeFromCart(${item.id})">حذف</button>
+                    </li>
+                `;
+            });
+            totalPriceEl.innerText = total + ' درهم';
+        }
+
+        function updateCart() {
+            project_updateCart();
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('السلة فارغة، أضف بعض المنتجات أولاً!');
+                return;
+            }
+            let message = "مرحباً، أود طلب المنتجات التالية:%0A";
+            let total = 0;
+            cart.forEach(item => {
+                message += `- ${item.name} (${item.quantity}x) : ${item.price * item.quantity} درهم%0A`;
+                total += item.price * item.quantity;
+            });
+            message += `%0Aالمجموع الكلي: ${total} درهم`;
+            let whatsappUrl = `https://wa.me/212723110764?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        renderProducts();
+    </script>
+</body>
+  </html>
+  
