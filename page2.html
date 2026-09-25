@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAID SGHIR - الصفحة الثانية</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f7f2ea;
+            color: #333;
+            padding-bottom: 90px;
+        }
+        header {
+            background-color: #1b3b2b;
+            color: #fff;
+            text-align: center;
+            padding: 20px 10px;
+            border-bottom: 4px solid #d4af37;
+        }
+        header h1 {
+            font-size: 24px;
+            letter-spacing: 2px;
+            color: #f4e8c1;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+        header p {
+            font-size: 12px;
+            color: #d1e7dd;
+        }
+        .container {
+            max-width: 800px;
+            margin: 15px auto;
+            padding: 0 10px;
+        }
+        .products-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .product-card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            border: 1px solid #e2dacd;
+        }
+        .product-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+        .product-img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 6px;
+            background: #eee;
+            border: 1px solid #ddd;
+            flex-shrink: 0;
+        }
+        .product-details h3 {
+            font-size: 13px;
+            color: #1b3b2b;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+        .product-details p {
+            font-size: 10px;
+            color: #666;
+        }
+        .product-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .price {
+            font-size: 13px;
+            font-weight: bold;
+            color: #b8860b;
+            white-space: nowrap;
+        }
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: #fdfbf7;
+            border: 1px solid #dcd6cd;
+            border-radius: 4px;
+            padding: 2px 4px;
+        }
+        .qty-btn {
+            background: #e8dcc4;
+            border: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 3px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #333;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .qty-btn:active {
+            background: #d4af37;
+        }
+        .qty-num {
+            font-size: 13px;
+            font-weight: bold;
+            min-width: 16px;
+            text-align: center;
+        }
+        
+        /* زر العودة للصفحة الأولى */
+        .pagination-box {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .next-page-btn {
+            background-color: #d4af37;
+            color: #1b3b2b;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 13px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: inline-block;
+        }
+        .next-page-btn:hover {
+            background-color: #c19d30;
+        }
+
+        /* وصف المتجر */
+        .store-description {
+            background: #fff;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e2dacd;
+            text-align: center;
+        }
+        .store-description h3 {
+            color: #1b3b2b;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+        .store-description p {
+            color: #555;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .footer-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #fff;
+            border-top: 1px solid #ddd;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 -3px 10px rgba(0,0,0,0.1);
+        }
+        .checkout-btn {
+            background-color: #1b3b2b;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        /* نافذة إدخال المعلومات */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 15px;
+        }
+        .modal-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .modal-content h3 {
+            color: #1b3b2b;
+            font-size: 15px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            margin-bottom: 3px;
+            color: #333;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 7px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .modal-buttons button {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .btn-confirm { background: #1b3b2b; color: #fff; }
+        .btn-cancel { background: #ddd; color: #333; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>S A I D &nbsp; S G H I R</h1>
+        <p>✨ الصفحة الثانية للمنتجات الإضافية ✨</p>
+    </header>
+
+    <div class="container">
+        <div class="products-list">
+            
+            <!-- منتج 5 -->
+            <div class="product-card" data-name="Miel Pur" data-price="120">
+                <div class="product-right">
+                    <img src="https://images.unsplash.com/photo-1587049352847-4a222e784d38?w=100" alt="Miel" class="product-img">
+                    <div class="product-details">
+                        <h3>Miel Pur</h3>
+                        <p>عسل حر طبيعي ممتاز</p>
+                    </div>
+                </div>
+                <div class="product-left">
+                    <span class="price">120 د.م</span>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                        <span class="qty-num">0</span>
+                        <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- منتج 6 -->
+            <div class="product-card" data-name="The Lipton" data-price="30">
+                <div class="product-right">
+                    <img src="https://images.unsplash.com/photo-1597481497550-d79040b08579?w=100" alt="Lipton" class="product-img">
+                    <div class="product-details">
+                        <h3>The Lipton</h3>
+                        <p>شاي ليبتون العطور</p>
+                    </div>
+                </div>
+                <div class="product-left">
+                    <span class="price">30 د.م</span>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                        <span class="qty-num">0</span>
+                        <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- منتج 7 -->
+            <div class="product-card" data-name="Argan Oil" data-price="150">
+                <div class="product-right">
+                    <img src="https://images.unsplash.com/photo-1608248597359-994473397984?w=100" alt="Argan" class="product-img">
+                    <div class="product-details">
+                        <h3>Argan Oil</h3>
+                        <p>زيت الأرغان الأصلي</p>
+                    </div>
+                </div>
+                <div class="product-left">
+                    <span class="price">150 د.م</span>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                        <span class="qty-num">0</span>
+                        <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- منتج 8 -->
+            <div class="product-card" data-name="Beldi Soap" data-price="20">
+                <div class="product-right">
+                    <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=100" alt="Soap" class="product-img">
+                    <div class="product-details">
+                        <h3>Savon Beldi</h3>
+                        <p>الصابون البلدي المغربي</p>
+                    </div>
+                </div>
+                <div class="product-left">
+                    <span class="price">20 د.م</span>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                        <span class="qty-num">0</span>
+                        <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- زر العودة للصفحة الأولى -->
+        <div class="pagination-box">
+            <a href="index.html" class="next-page-btn">➡️ العودة إلى الصفحة الأولى</a>
+        </div>
+
+        <!-- وصف المتجر -->
+        <div class="store-description">
+            <h3>🌟 متجر SAID SGHIR 🌟</h3>
+            <p>نحن نحرص على توفير أفضل المنتجات التي تناسب احتياجاتكم بجودة عالية وتوصيل آمن.</p>
+        </div>
+    </div>
+
+    <div class="footer-bar">
+        <button class="checkout-btn" onclick="openCheckoutModal()">
+            🛒 إتمام الطلب (<span id="total-items">0</span> منتجات)
+        </button>
+    </div>
+
+    <!-- نافذة إدخال المعلومات -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content">
+            <h3>📝 معلومات التوصيل</h3>
+            <div class="form-group">
+                <label>الاسم الكامل:</label>
+                <input type="text" id="custName" placeholder="اكتب اسمك الكامل">
+            </div>
+            <div class="form-group">
+                <label>رقم الهاتف:</label>
+                <input type="tel" id="custPhone" placeholder="06xxxxxxxx">
+            </div>
+            <div class="form-group">
+                <label>المدينة:</label>
+                <input type="text" id="custCity" placeholder="أدخل مدينتك">
+            </div>
+            <div class="form-group">
+                <label>العنوان:</label>
+                <input type="text" id="custAddress" placeholder="الشارع أو الحي">
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeCheckoutModal()">إلغاء</button>
+                <button class="btn-confirm" onclick="sendOrderToWhatsApp()">تأكيد الطلب للواتساب</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function changeQty(btn, delta) {
+            let qtySpan = btn.parentElement.querySelector('.qty-num');
+            let currentQty = parseInt(qtySpan.innerText);
+            let newQty = currentQty + delta;
+            if (newQty < 0) newQty = 0;
+            qtySpan.innerText = newQty;
+            updateTotal();
+        }
+
+        function updateTotal() {
+            let total = 0;
+            document.querySelectorAll('.qty-num').forEach(span => {
+                total += parseInt(span.innerText);
+            });
+            document.getElementById('total-items').innerText = total;
+        }
+
+        function openCheckoutModal() {
+            let totalItems = parseInt(document.getElementById('total-items').innerText);
+            if (totalItems === 0) {
+                alert('الرجاء اختيار منتج واحد على الأقل لإتمام الطلب.');
+                return;
+            }
+            document.getElementById('checkoutModal').style.display = 'flex';
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkoutModal').style.display = 'none';
+        }
+
+        function sendOrderToWhatsApp() {
+            let name = document.getElementById('custName').value.trim();
+            let phone = document.getElementById('custPhone').value.trim();
+            let city = document.getElementById('custCity').value.trim();
+            let address = document.getElementById('custAddress').value.trim();
+
+            if (!name || !phone || !city || !address) {
+                alert('المرجو تعبئة جميع المعلومات (الاسم، الهاتف، المدينة، العنوان)!');
+                return;
+            }
+
+            let orderDetails = `🛒 *طلب جديد من متجر SAID SGHIR (الصفحة 2)*%0A%0A`;
+            orderDetails += `👤 *الاسم:* ${name}%0A`;
+            orderDetails += `📞 *الهاتف:* ${phone}%0A`;
+            orderDetails += `🏙️ *المدينة:* ${city}%0A`;
+            orderDetails += `📍 *العنوان:* ${address}%0A%0A`;
+            orderDetails += `📋 *فاتورة المواد المختارة:*%0A`;
+
+            let totalPrice = 0;
+
+            document.querySelectorAll('.product-card').forEach(card => {
+                let qty = parseInt(card.querySelector('.qty-num').innerText);
+                if (qty > 0) {
+                    let productName = card.getAttribute('data-name');
+                    let price = parseFloat(card.getAttribute('data-price'));
+                    let subTotal = qty * price;
+                    totalPrice += subTotal;
+                    orderDetails += `- ${productName} × ${qty} = ${subTotal} د.م%0A`;
+                }
+            });
+
+            orderDetails += `%0A💰 *المجموع الكلي:* ${totalPrice} د.م`;
+
+            let myWhatsApp = "212600000000"; 
+            let url = `https://wa.me/${myWhatsApp}?text=${orderDetails}`;
+            window.open(url, '_blank');
+            closeCheckoutModal();
+        }
+    </script>
+</body>
+  </html>
+  
