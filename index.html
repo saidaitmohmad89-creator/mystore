@@ -128,6 +128,28 @@
             min-width: 15px;
             text-align: center;
         }
+        
+        /* قسم وصف المتجر في الأسفل */
+        .store-description {
+            background: #fff;
+            margin: 25px 10px;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e2dacd;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+        .store-description h3 {
+            color: #1b3b2b;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        .store-description p {
+            color: #555;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
         .footer-bar {
             position: fixed;
             bottom: 0;
@@ -158,26 +180,92 @@
         .checkout-btn:hover {
             background-color: #2c5e43;
         }
+
+        /* نافذة إدخال المعلومات (Modal) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 15px;
+        }
+        .modal-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .modal-content h3 {
+            color: #1b3b2b;
+            font-size: 16px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 12px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 4px;
+            color: #333;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 13px;
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .modal-buttons button {
+            flex: 1;
+            padding: 9px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .btn-confirm {
+            background: #1b3b2b;
+            color: #fff;
+        }
+        .btn-cancel {
+            background: #ddd;
+            color: #333;
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>S A I D &nbsp; S G H I R</h1>
-        <p>✨ سحناس الأحابة بالقلاى ، وسا وتعيد قارات الجاملك ✨</p>
-        <p>Welcome to les Cafés dubarence, que Je la más! Samar Café (Se vile fivg do Store)</p>
-        <p>☕ + LcXOFI + l OZi,IXEO ! +oZOIEI / oOTzChi ✨</p>
+        <h1>S A I D &nbsp; S G HIR</h1>
+        <p>✨ متجر سعيد الصغير للمنتجات والمواد الغذائية الأصلية ✨</p>
     </header>
 
     <div class="container">
         <div class="products-grid">
             
-            <div class="product-card">
+            <div class="product-card" data-name="L'OR Espresso" data-price="65">
                 <div class="product-info">
                     <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=100" alt="L'OR Espresso" class="product-img">
                     <div class="product-details">
                         <h3>L'OR Espresso</h3>
-                        <p>L'OR Espresso</p>
+                        <p>قهوة لور اسبريسو الأصلية</p>
                     </div>
                 </div>
                 <div class="product-action">
@@ -190,12 +278,12 @@
                 </div>
             </div>
 
-            <div class="product-card">
+            <div class="product-card" data-name="Thé Vert Dahmiche" data-price="25">
                 <div class="product-info">
                     <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=100" alt="Thé Vert Dahmiche" class="product-img">
                     <div class="product-details">
                         <h3>Thé Vert Dahmiche</h3>
-                        <p>Thé Vert Dahmiche | Thé Vert & Turr vsrt Dahmiche</p>
+                        <p>الشاي الأخضر الممتاز</p>
                     </div>
                 </div>
                 <div class="product-action">
@@ -208,156 +296,12 @@
                 </div>
             </div>
 
-            <div class="product-card">
-                <div class="product-info">
-                    <img src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=100" alt="Les Cafés Dubois" class="product-img">
-                    <div class="product-details">
-                        <h3>Les Cafés Dubois ❤️</h3>
-                        <p>Les Cafés Dubois | Ls Daés | Les Cafés Dubois</p>
-                    </div>
-                </div>
-                <div class="product-action">
-                    <span class="price">45 د.م</span>
-                    <div class="qty-controls">
-                        <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                        <span class="qty-num">0</span>
-                        <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-info">
-                    <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=100" alt="Thé Vert As-Sabeh" class="product-img">
-                    <div class="product-details">
-                        <h3>Thé Vert As-Sabeh</h3>
-                        <p>Thé Vert As-Sabeh | Thé Vert An-Sabeh</p>
-                    </div>
-                </div>
-                <div class="product-action">
-                    <span class="price">28 د.م</span>
-                    <div class="qty-controls">
-                        <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                        <span class="qty-num">0</span>
-                        <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-info">
-                    <img src="https://images.unsplash.com/photo-1587049352847-4a222e784d38?w=100" alt="Samar Café" class="product-img">
-                    <div class="product-details">
-                        <h3>Samar Café ✨</h3>
-                        <p>Samar Café | Samar Cafés Samar | Samar Café</p>
-                    </div>
-                </div>
-                <div class="product-action">
-                    <span class="price">40 د.م</span>
-                    <div class="qty-controls">
-                        <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                        <span class="qty-num">0</span>
-                        <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-info">
-                    <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=100" alt="Thé Vert An-Nas" class="product-img">
-                    <div class="product-details">
-                        <h3>Thé Vert An-Nas دمحي</h3>
-                        <p>Thé Vert An-Nas | Thé Vert An-Nas Vert As-Nas</p>
-                    </div>
-                </div>
-                <div class="product-action">
-                    <span class="price">26 د.م</span>
-                    <div class="qty-controls">
-                        <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                        <span class="qty-num">0</span>
-                        <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-info">
-                    <img src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=100" alt="Asta Café" class="product-img">
-                    <div class="product-details">
-                        <h3>Asta Café ✨</h3>
-                        <p>Asta Café | Asta Café Astz | Asta Cafés</p>
-                    </div>
-                </div>
-                <div class="product-action">
-                    <span class="price">38 د.م</span>
-                    <div class="qty-controls">
-                        <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                        <span class="qty-num">0</span>
-                        <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-info">
-                    <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=100" alt="Thé Vert An-Nas Arabes" class="product-img">
-                    <div class="product-details">
-                        <h3>Thé Vert An-Nas الأريج</h3>
-                        <p>Thé Vert An-Nas Arabes | Thé Vert Arabic</p>
-                    </div>
-                </div>
-                <div class="product-action">
-                    <span class="price">26 د.م</span>
-                    <div class="qty-controls">
-                        <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                        <span class="qty-num">0</span>
-                        <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-info">
-                    <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=100" alt="Thé Vert Dahmiche" class="product-img">
-                    <div class="product-details">
-                        <h3>Thé Vert Dahmiche ص</h3>
-                        <p>Thé Vert Dahmiche | Thé Vert Da-bes | Thé Vert</p>
-                    </div>
-                </div>
-                <div class="product-action">
-                    <span class="price">25 د.م</span>
-                    <div class="qty-controls">
-                        <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                        <span class="qty-num">0</span>
-                        <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-info">
-                    <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=100" alt="Thé Vert An-Nas Arabes" class="product-img">
-                    <div class="product-details">
-                        <h3>Thé Vert An-Nas كرس</h3>
-                        <p>Thé Vert An-Nas Arabes | Thé Vert An-Nas Aralkas</p>
-                    </div>
-                </div>
-                <div class="product-action">
-                    <span class="price">27 د.م</span>
-                    <div class="qty-controls">
-                        <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                        <span class="qty-num">0</span>
-                        <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card">
+            <div class="product-card" data-name="Huile d'Olive" data-price="85">
                 <div class="product-info">
                     <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=100" alt="Huile d'Olive" class="product-img">
                     <div class="product-details">
                         <h3>Huile d'Olive</h3>
-                        <p>Huile d'Olive | Huile</p>
+                        <p>زيت الزيتون البكر الممتاز</p>
                     </div>
                 </div>
                 <div class="product-action">
@@ -370,84 +314,12 @@
                 </div>
             </div>
 
-            <div class="product-card">
+            <div class="product-card" data-name="Pain de Sucre" data-price="35">
                 <div class="product-info">
-                    <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=100" alt="Huile d'Olive عالية" class="product-img">
-                    <div class="product-details">
-                        <h3>Huile d'Olive عالية</h3>
-                        <p>Huile d'Olive عالية | زيت الزيتون الممتاز</p>
-                    </div>
-                </div>
-                <div class="product-action">
-                    <span class="price">85 د.م</span>
-                    <div class="qty-controls">
-                        <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                        <span class="qty-num">0</span>
-                        <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-info">
-                    <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=100" alt="Huile de Table Lio" class="product-img">
-                    <div class="product-details">
-                        <h3>Huile de Table Lio</h3>
-                        <p>Huile de Table Lio | Huile de Table</p>
-                    </div>
-                </div>
-                <div class="product-action">
-                    <span class="price">24 د.م</span>
-                    <div class="qty-controls">
-                        <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                        <span class="qty-num">0</span>
-                        <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-info">
-                    <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=100" alt="Huile de Table Lio انيس" class="product-img">
-                    <div class="product-details">
-                        <h3>Huile de Table Lio انيس</h3>
-                        <p>Huile de Table Lio | Huile de Table de lio</p>
-                    </div>
-                </div>
-                <div class="product-action">
-                    <span class="price">24 د.م</span>
-                    <div class="qty-controls">
-                        <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                        <span class="qty-num">0</span>
-                        <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-info">
-                    <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=100" alt="Pain de Sucre Enmer" class="product-img">
+                    <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=100" alt="Pain de Sucre" class="product-img">
                     <div class="product-details">
                         <h3>Pain de Sucre Enmer</h3>
-                        <p>Pain de Sucre Enmer | Pain de S Enmer</p>
-                    </div>
-                </div>
-                <div class="product-action">
-                    <span class="price">35 د.م</span>
-                    <div class="qty-controls">
-                        <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                        <span class="qty-num">0</span>
-                        <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-info">
-                    <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=100" alt="Pain de Sucre Enmer العابي" class="product-img">
-                    <div class="product-details">
-                        <h3>Pain de Sucre Enmer العابي</h3>
-                        <p>Pain de Sucre Enmer | قالب السكر المغربي الأصيل</p>
+                        <p>قالب السكر المغربي الأصيل</p>
                     </div>
                 </div>
                 <div class="product-action">
@@ -461,12 +333,45 @@
             </div>
 
         </div>
+
+        <!-- وصف المتجر الجميل في الأسفل -->
+        <div class="store-description">
+            <h3>🌟 عن متجر SAID SGHIR 🌟</h3>
+            <p>هذا المتجر هو وجهتكم المثالية لاقتناء أجود المواد الغذائية والمنتجات الأصلية بأفضل الأسعار. نحن نؤمن بجودة الخدمة وسرعة التوصيل لراحتكم. شكراً لتقتكم بنا!</p>
+        </div>
     </div>
 
     <div class="footer-bar">
-        <button class="checkout-btn" onclick="checkout()">
+        <button class="checkout-btn" onclick="openCheckoutModal()">
             🛒 إتمام الطلب (<span id="total-items">0</span> منتجات)
         </button>
+    </div>
+
+    <!-- نافذة إدخال المعلومات -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content">
+            <h3>📝 أدخل معلومات التوصيل</h3>
+            <div class="form-group">
+                <label>الاسم الكامل:</label>
+                <input type="text" id="custName" placeholder="اكتب اسمك الكامل">
+            </div>
+            <div class="form-group">
+                <label>رقم الهاتف:</label>
+                <input type="tel" id="custPhone" placeholder="06xxxxxxxx">
+            </div>
+            <div class="form-group">
+                <label>المدينة:</label>
+                <input type="text" id="custCity" placeholder="أدخل مدينتك">
+            </div>
+            <div class="form-group">
+                <label>العنوان / الموقع:</label>
+                <input type="text" id="custAddress" placeholder="الححي أو الشارع">
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeCheckoutModal()">إلغاء</button>
+                <button class="btn-confirm" onclick="sendOrderToWhatsApp()">تأكيد وإرسال للواتساب</button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -487,5 +392,59 @@
             document.getElementById('total-items').innerText = total;
         }
 
-        function checkout() {
-            let total = parseInt(document.getElemen
+        function openCheckoutModal() {
+            let totalItems = parseInt(document.getElementById('total-items').innerText);
+            if (totalItems === 0) {
+                alert('الرجاء اختيار منتج واحد على الأقل لإتمام الطلب.');
+                return;
+            }
+            document.getElementById('checkoutModal').style.display = 'flex';
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkoutModal').style.display = 'none';
+        }
+
+        function sendOrderToWhatsApp() {
+            let name = document.getElementById('custName').value.trim();
+            let phone = document.getElementById('custPhone').value.trim();
+            let city = document.getElementById('custCity').value.trim();
+            let address = document.getElementById('custAddress').value.trim();
+
+            if (!name || !phone || !city || !address) {
+                alert('المرجو تعبئة جميع معلومات التوصيل (الاسم، الهاتف، المدينة، العنوان)!');
+                return;
+            }
+
+            let orderDetails = `🛒 *طلب جديد من متجر SAID SGHIR*%0A%0A`;
+            orderDetails += `👤 *الاسم:* ${name}%0A`;
+            orderDetails += `📞 *الهاتف:* ${phone}%0A`;
+            orderDetails += `🏙️ *المدينة:* ${city}%0A`;
+            orderDetails += `📍 *العنوان:* ${address}%0A%0A`;
+            orderDetails += `📋 *فاتورة المواد المختارة:*%0A`;
+
+            let totalPrice = 0;
+
+            document.querySelectorAll('.product-card').forEach(card => {
+                let qty = parseInt(card.querySelector('.qty-num').innerText);
+                if (qty > 0) {
+                    let productName = card.getAttribute('data-name');
+                    let price = parseFloat(card.getAttribute('data-price'));
+                    let subTotal = qty * price;
+                    totalPrice += subTotal;
+                    orderDetails += `- ${productName} × ${qty} = ${subTotal} د.م%0A`;
+                }
+            });
+
+            orderDetails += `%0A💰 *المجموع الكلي:* ${totalPrice} د.م`;
+
+            // استبدل الرقم برقم الواتساب الخاص بك بالصيغة الدولية (مثلاً 2126xxxxxxxx)
+            let myWhatsApp = "212600000000"; 
+            let url = `https://wa.me/${myWhatsApp}?text=${orderDetails}`;
+            window.open(url, '_blank');
+            closeCheckoutModal();
+        }
+    </script>
+</body>
+            </html>
+                    
